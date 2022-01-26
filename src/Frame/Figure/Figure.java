@@ -1,4 +1,6 @@
-package Animation;
+package Frame.Figure;
+
+import Frame.Figure.Point.*;
 
 public class Figure
 {

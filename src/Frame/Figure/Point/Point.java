@@ -1,4 +1,4 @@
-package Animation;
+package Frame.Figure.Point;
 
 public class Point
 {

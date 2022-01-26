@@ -1,8 +1,9 @@
-package Animation;
+package Frame;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
+import Frame.Figure.*;
+import Frame.Figure.Point.*;
 
 public class Frame
 {

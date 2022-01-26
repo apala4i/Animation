@@ -1,7 +1,8 @@
 import java.io.IOException;
-import java.util.Scanner;
 
-import Animation.*;
+import Frame.*;
+import Frame.Figure.*;
+import Frame.Figure.Point.*;
 
 public class MainApp
 {

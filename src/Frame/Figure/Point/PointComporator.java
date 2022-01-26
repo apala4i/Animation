@@ -1,7 +1,7 @@
-package Animation;
+package Frame.Figure.Point;
 import java.util.*;
 
-class PointComporator implements Comparator<Point>
+public class PointComporator implements Comparator<Point>
 {
 
     public int compare(Point firstPoint, Point secondPoint)
