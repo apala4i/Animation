@@ -40,14 +40,6 @@ public class Figure
     public void stabPos(int width, int height)
     {
         int a;
-        // if (pos.getX() < 0)
-        // {
-        //     pos.setX(width - 1);
-        // }
-        // if (pos.getY() < 0)
-        // {
-        //     pos.setY(height - 1);
-        // }
         if (Math.abs(pos.getX()) >= (width + size))
         {
             pos.setX(-size);   
