@@ -2,15 +2,17 @@ package Frame;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import Frame.Figure.*;
-import Frame.Figure.Point.*;
+
+import Figure.*;
+import Point.*;
+import Point.Pixel.*;
 
 public class Frame
 {
-    private ArrayList<Point> framePoints = new ArrayList<Point>();
+    private ArrayList<Pixel> framePixels = new ArrayList<Pixel>();
     
-    private int width;
-    private int height; 
+    private int width = 0;
+    private int height = 0; 
     private int squeezeX = 2;
     private int squeezeY = 1;
     
@@ -40,78 +42,67 @@ public class Frame
 
     private void MakeCircle(Figure aFigure)
     {
-        ArrayList<Point> figurePoints = new ArrayList<Point>();
+        ArrayList<Pixel> figurePixels = new ArrayList<Pixel>();
         for (int i = 0; i < height; ++i)
         {
             for (int j = 0; j < width; ++j)
             {
-                if (inFigureCheck(aFigure, new Point(j, i)))
+                if (inCircleCheck(aFigure, new Point(j, i)))
                 {
-                    figurePoints.add(squeezePoint(new Point(j, i)));
+                    Pixel newPixel = new Pixel(j, i);
+                    squeezePixel(newPixel);
+                    figurePixels.add(newPixel);
                 }
             }
         }
-        Collections.sort(framePoints, new PointComporator());
-        addFigureToFrame(figurePoints);
+        Collections.sort(framePixels, new PointComporator());
+        addFigureToFrame(figurePixels);
     }
 
-    private Point squeezePoint(Point point)
+    private void squeezePixel(Pixel pixel)
     {
-        return new Point(point.getX() * squeezeX % (width), point.getY() * squeezeY % (height));
+        pixel.setX(pixel.getX() * squeezeX % width);
+        pixel.setY(pixel.getY() * squeezeY % height);
     }
 
-
-    private void addFigureToFrame(ArrayList<Point> figurePoints)
+    private void addFigureToFrame(ArrayList<Pixel> figurePoints)
     {
         int curFrameIndex = 0;
         int curFigureIndex = 0;
 
-        ArrayList<Point> resPoints = new ArrayList<Point>();
+        ArrayList<Pixel> resPoints = new ArrayList<Pixel>();
 
-        while (curFrameIndex != framePoints.size() && curFigureIndex != figurePoints.size())
-        {
-            int cmpY = framePoints.get(curFrameIndex).compareY(figurePoints.get(curFigureIndex));
-            int cmpX = framePoints.get(curFrameIndex).compareX(figurePoints.get(curFigureIndex));
-            if ( cmpY != 0)
+        while (curFrameIndex != framePixels.size() && curFigureIndex != figurePoints.size())
+        {   
+            int cmpRes = new PointComporator().compare(framePixels.get(curFrameIndex), figurePoints.get(curFigureIndex));
+            if (cmpRes > 0)
             {
-                if (cmpY > 0)
-                {
-                    resPoints.add(figurePoints.get(curFigureIndex++));
-                }
-                else
-                {
-                    resPoints.add(framePoints.get(curFrameIndex++));
-                }
+                resPoints.add(figurePoints.get(curFigureIndex++));
+            }
+            else if (cmpRes < 0)
+            {
+                resPoints.add(framePixels.get(curFrameIndex++));
             }
             else
             {
-                if (cmpX > 0)
-                {
-                    resPoints.add(figurePoints.get(curFigureIndex++));
-                }
-                else if (cmpX < 0)
-                {
-                    resPoints.add(framePoints.get(curFrameIndex++));
-                }
-                else
-                {
-                    resPoints.add(framePoints.get(curFrameIndex++));
-                    curFigureIndex++;
-                }
+                resPoints.add(framePixels.get(curFrameIndex++));
+                curFigureIndex++;
             }
         }
-        while (curFrameIndex != framePoints.size())
+
+        while (curFrameIndex != framePixels.size())
         {
-            resPoints.add(framePoints.get(curFrameIndex++));
+            resPoints.add(framePixels.get(curFrameIndex++));
         }
+
         while (curFigureIndex != figurePoints.size())
         {
             resPoints.add(figurePoints.get(curFigureIndex++));
         }
-        framePoints = resPoints;
+        framePixels = resPoints;
     } 
 
-    private boolean inFigureCheck(Figure aFigure, Point checkDot)
+    private boolean inCircleCheck(Figure aFigure, Point checkDot)
     {
         return (Math.pow((double)(checkDot.getX() - aFigure.getPos().getX()), 2)
         + Math.pow((double)(checkDot.getY() - aFigure.getPos().getY()), 2) <= Math.pow(aFigure.getSize(), 2));
@@ -120,20 +111,20 @@ public class Frame
     public void drawFrame(Figure aFigure)
     {
         // System.out.print("\033[H\033[2J");
-        if (framePoints.size() != 0)
+        if (framePixels.size() != 0)
         {
             int nextIndex = 0;
-            Point nextPoint = framePoints.get(nextIndex);
+            Pixel nextPixel = framePixels.get(nextIndex);
             for (int i = 0; i < height; ++i)
             {
                 for (int j = 0; j < width; ++j)
                 {
-                    if (new Point(j,i).equals(nextPoint))
+                    if (new Point(j,i).equals(nextPixel))
                     {
-                        System.out.print("*");
-                        if (framePoints.size() - 1 != nextIndex)
+                        System.out.printf("%c", nextPixel.getFiller());
+                        if (framePixels.size() - 1 != nextIndex)
                         {
-                            nextPoint = framePoints.get(++nextIndex);
+                            nextPixel = framePixels.get(++nextIndex);
                         }
                     }
                     else
@@ -148,6 +139,46 @@ public class Frame
         {
             System.out.printf("posX - %d\nPosY - %d\n", aFigure.getPos().getX(), aFigure.getPos().getY());
         }
+    }
+
+    public int getWidth()
+    {
+        return width;
+    }
+
+    public int getHeight()
+    {
+        return height;
+    }
+
+    public int getSqueezeX()
+    {
+        return squeezeX;
+    }
+
+    public int getSqueezeY()
+    {
+        return squeezeY;
+    }
+
+    public void setWidth(int width)
+    {
+        this.width = width;
+    }
+
+    public void setHeight(int height)
+    {
+        this.height = height;
+    }
+
+    public void setSqueezeX(int squeezeX )
+    {
+        this.squeezeX = squeezeX;
+    }
+
+    public void setSqueezeY(int squeezeY)
+    {
+        this.squeezeY = squeezeY;
     }
 }
 

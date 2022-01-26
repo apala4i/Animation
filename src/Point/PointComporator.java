@@ -1,4 +1,4 @@
-package Frame.Figure.Point;
+package Point;
 import java.util.*;
 
 public class PointComporator implements Comparator<Point>

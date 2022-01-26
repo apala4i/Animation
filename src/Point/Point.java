@@ -1,4 +1,4 @@
-package Frame.Figure.Point;
+package Point;
 
 public class Point
 {

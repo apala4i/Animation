@@ -1,8 +1,8 @@
 import java.io.IOException;
 
 import Frame.*;
-import Frame.Figure.*;
-import Frame.Figure.Point.*;
+import Figure.*;
+import Point.*;
 
 public class MainApp
 {

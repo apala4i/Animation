@@ -1,6 +1,6 @@
-package Frame.Figure;
+package Figure;
 
-import Frame.Figure.Point.*;
+import Point.*;
 
 public class Figure
 {
