@@ -28,7 +28,7 @@ public class MainApp
             aFrame = new Frame(width, height);
             aFrame.addFigure(aCircle);
             aFrame.addFigure(bCircle);
-            Thread.sleep(300);
+            Thread.sleep(100);
         }
             // System.out.print("\033[H\033[2J");
             // System.out.flush();

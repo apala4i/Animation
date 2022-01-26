@@ -47,8 +47,8 @@ public class Figure
         {
             pos.setY(height - 1);
         }
-        pos.setX(pos.getX() % width);
-        pos.setY(pos.getY() % height);
+        pos.setX(pos.getX() % (width + size));
+        pos.setY(pos.getY() % (height + size));
     }
 
     public void move()
