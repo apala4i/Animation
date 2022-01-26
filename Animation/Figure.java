@@ -37,6 +37,14 @@ public class Figure
 
     public void stabPos(int width, int height)
     {
+        if (pos.getX() < 0)
+        {
+            pos.setX(width - 1);
+        }
+        if (pos.getY() < 0)
+        {
+            pos.setY(height - 1);
+        }
         pos.setX(pos.getX() % width);
         pos.setY(pos.getY() % height);
     }

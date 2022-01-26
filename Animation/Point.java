@@ -42,4 +42,14 @@ public class Point
         return ((this.x == aPoint.x) && (this.y == aPoint.y));
     }
 
+    public int compareX(Point aPoint)
+    {
+        return this.x - aPoint.x;
+    }
+
+    public int compareY(Point aPoint)
+    {
+        return this.y - aPoint.y;
+    }
+
 }
