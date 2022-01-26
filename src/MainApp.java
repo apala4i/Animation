@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 import Frame.*;
 import Figure.*;
+import Figure.ReadyFigure.ReadyFigure;
 import Point.*;
 import Settings.*;
 
@@ -53,34 +54,40 @@ public class MainApp
 
 
         System.out.println("Game starts in...");
-        Thread.sleep(500);
+        Thread.sleep(100);
         System.out.println("3...");
-        Thread.sleep(500);
+        Thread.sleep(100);
         System.out.println("2...");
-        Thread.sleep(500);
+        Thread.sleep(100);
         System.out.println("1...");
-        Thread.sleep(500);
+        Thread.sleep(100);
 
         int width = aSettings.getWidth();
         int height = aSettings.getHeight();
         Figure aCircle = new Figure("Circle", 5, new Point(40, 10), new Point(1, -1));
         Figure bCircle = new Figure("Circle", 8, new Point(10, 10), new Point(0, 2));
         Frame aFrame = new Frame(width, height);
-        aFrame.addFigure(aCircle);
-        aFrame.addFigure(bCircle);
+        //aFrame.addFigure(aCircle);
+        //aFrame.addFigure(bCircle);
+
+        ReadyFigure cFigure = new ReadyFigure("testFigure.txt", aFrame);
 
         while (true)
         {
-            aFrame.drawFrame(aCircle);
+            aFrame.drawFrame();
             // aCircle.setSize((aCircle.getSize() + 1) % 5);
-            aCircle.move();
+            //aCircle.move();
             aCircle.stabPos(width, height);
             // bCircle.setSize((bCircle.getSize() + 1) % 8);
-            bCircle.move();
+            //bCircle.move();
             bCircle.stabPos(width, height);
             aFrame = new Frame(width, height);
-            aFrame.addFigure(aCircle);
-            aFrame.addFigure(bCircle);
+
+            cFigure.move(aFrame);
+
+            aFrame.addFigure(cFigure);
+            //aFrame.addFigure(aCircle);
+            //aFrame.addFigure(bCircle);
             Thread.sleep(100);
         }
             // System.out.print("\033[H\033[2J");

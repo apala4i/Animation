@@ -5,9 +5,9 @@ import Point.*;
 public class Figure
 {
     private String type = "none";
-    private int size;
-    private Point pos;
-    private Point direction;
+    private int size = 0;
+    private Point pos = null;
+    private Point direction = null;
 
     public Figure(String type, int size, Point pos, Point direction)
     {
@@ -16,6 +16,8 @@ public class Figure
         this.size = size;
         this.pos = pos;
     }
+
+    public Figure(){}
 
     public String getType()
     {
@@ -32,39 +34,43 @@ public class Figure
         return pos;
     }
 
+    public Point getDirection()
+    {
+        return direction; 
+    }
+
     public void setSize(int size)
     {
         this.size = size;
     }
 
+    public void setPos(Point pos)
+    {
+        this.pos = pos;
+    }
+
+    public void setType(String type)
+    {
+        this.type = type;
+    }
+
+    public void setDirection(Point direction)
+    {
+        this.direction = direction;
+    }
+
     public void stabPos(int width, int height)
     {
-        int a;
-        if (Math.abs(pos.getX()) >= (width + size))
+        if (pos.getX() < 0)
         {
-            pos.setX(-size);   
+            pos.setX(width - 1);
         }
-        else if (pos.getX() < -size)
+        if (pos.getY() < 0)
         {
-            pos.setX(width + size - 1);   
+            pos.setY(height - 1);
         }
-        else
-        {
-            pos.setX(Integer.signum(pos.getX())*(Math.abs(pos.getX()) % (width + size)));
-        }
-
-        if (Math.abs(pos.getY()) >= (height + size))
-        {
-            pos.setY(-size);   
-        }
-        else if (pos.getY() < -size)
-        {
-            pos.setY(height + size - 1);   
-        }
-        else
-        {
-            pos.setY(Integer.signum(pos.getY())*(Math.abs(pos.getY()) % (height + size)));
-        }
+        pos.setX(pos.getX() % (width + size));
+        pos.setY(pos.getY() % (height + size));
     }
 
     public void move()

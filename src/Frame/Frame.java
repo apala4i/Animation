@@ -6,6 +6,7 @@ import java.util.Collections;
 import Figure.*;
 import Point.*;
 import Point.Pixel.*;
+import Figure.ReadyFigure.*;
 
 public class Frame
 {
@@ -40,6 +41,11 @@ public class Frame
         }
     }
 
+    public void addFigure(ReadyFigure aReadyFigure)
+    {
+        addFigureToFramePixels(aReadyFigure);
+    }
+
     private void MakeCircle(Figure aFigure)
     {
         ArrayList<Pixel> figurePixels = new ArrayList<Pixel>();
@@ -56,7 +62,7 @@ public class Frame
             }
         }
         Collections.sort(framePixels, new PointComporator());
-        addFigureToFrame(figurePixels);
+        addFigureToFramePixels(figurePixels);
     }
 
     private void squeezePixel(Pixel pixel)
@@ -65,7 +71,7 @@ public class Frame
         pixel.setY(pixel.getY() * squeezeY % height);
     }
 
-    private void addFigureToFrame(ArrayList<Pixel> figurePoints)
+    private void addFigureToFramePixels(ArrayList<Pixel> figurePoints)
     {
         int curFrameIndex = 0;
         int curFigureIndex = 0;
@@ -102,13 +108,51 @@ public class Frame
         framePixels = resPoints;
     } 
 
+    private void addFigureToFramePixels(ReadyFigure aReadyFigure)
+    {
+        int curFrameIndex = 0;
+        int curFigureIndex = 0;
+
+        ArrayList<Pixel> resPoints = new ArrayList<Pixel>();
+        ArrayList<Pixel> figurePixels = aReadyFigure.getFigurePixels();
+
+        while (curFrameIndex != framePixels.size() && curFigureIndex != figurePixels.size())
+        {   
+            int cmpRes = new PointComporator().compare(framePixels.get(curFrameIndex), figurePixels.get(curFigureIndex));
+            if (cmpRes > 0)
+            {
+                resPoints.add(figurePixels.get(curFigureIndex++));
+            }
+            else if (cmpRes < 0)
+            {
+                resPoints.add(framePixels.get(curFrameIndex++));
+            }
+            else
+            {
+                resPoints.add(framePixels.get(curFrameIndex++));
+                curFigureIndex++;
+            }
+        }
+
+        while (curFrameIndex != framePixels.size())
+        {
+            resPoints.add(framePixels.get(curFrameIndex++));
+        }
+
+        while (curFigureIndex != figurePixels.size())
+        {
+            resPoints.add(figurePixels.get(curFigureIndex++));
+        }
+        framePixels = resPoints;
+    }
+
     private boolean inCircleCheck(Figure aFigure, Point checkDot)
     {
         return (Math.pow((double)(checkDot.getX() - aFigure.getPos().getX()), 2)
         + Math.pow((double)(checkDot.getY() - aFigure.getPos().getY()), 2) <= Math.pow(aFigure.getSize(), 2));
     }
 
-    public void drawFrame(Figure aFigure)
+    public void drawFrame()
     {
         // System.out.print("\033[H\033[2J");
         if (framePixels.size() != 0)
@@ -134,10 +178,6 @@ public class Frame
                 }
                 System.out.println();
             }
-        }
-        else
-        {
-            System.out.printf("posX - %d\nPosY - %d\n", aFigure.getPos().getX(), aFigure.getPos().getY());
         }
     }
 
