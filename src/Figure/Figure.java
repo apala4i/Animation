@@ -39,16 +39,40 @@ public class Figure
 
     public void stabPos(int width, int height)
     {
-        if (pos.getX() < 0)
+        int a;
+        // if (pos.getX() < 0)
+        // {
+        //     pos.setX(width - 1);
+        // }
+        // if (pos.getY() < 0)
+        // {
+        //     pos.setY(height - 1);
+        // }
+        if (Math.abs(pos.getX()) >= (width + size))
         {
-            pos.setX(width - 1);
+            pos.setX(-size);   
         }
-        if (pos.getY() < 0)
+        else if (pos.getX() < -size)
         {
-            pos.setY(height - 1);
+            pos.setX(width + size - 1);   
         }
-        pos.setX(pos.getX() % (width + size));
-        pos.setY(pos.getY() % (height + size));
+        else
+        {
+            pos.setX(Integer.signum(pos.getX())*(Math.abs(pos.getX()) % (width + size)));
+        }
+
+        if (Math.abs(pos.getY()) >= (height + size))
+        {
+            pos.setY(-size);   
+        }
+        else if (pos.getY() < -size)
+        {
+            pos.setY(height + size - 1);   
+        }
+        else
+        {
+            pos.setY(Integer.signum(pos.getY())*(Math.abs(pos.getY()) % (height + size)));
+        }
     }
 
     public void move()
