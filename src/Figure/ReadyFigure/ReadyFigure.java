@@ -110,5 +110,6 @@ public class ReadyFigure extends Figure
             curPixel.setX((curPixel.getX() + direction.getX()) % aFrame.getWidth());
             curPixel.setY((curPixel.getY() + direction.getY()) % aFrame.getHeight());
         }
+        Collections.sort(figurePixels, new PointComporator());
     }
 }
