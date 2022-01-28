@@ -78,12 +78,12 @@ public final class Frame
 
         while (curFrameIndex != framePixels.size())
         {
-            addPixelToFrame(resPoints, figurePixels.get(curFigureIndex++));
+            resPoints.add(framePixels.get(curFrameIndex++));
         }
 
         while (curFigureIndex != figurePixels.size())
         {
-            resPoints.add(figurePixels.get(curFigureIndex++));
+            addPixelToFrame(resPoints, figurePixels.get(curFigureIndex++));
         }
         framePixels = resPoints;
     }

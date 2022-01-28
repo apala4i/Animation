@@ -22,12 +22,6 @@ public abstract class BaseFigure extends Figure
         this.size = size.clone();
     }
 
-    public void move()
-    {
-        int newX = super.getPosition().getX() + super.getDirection().getX();
-        int newY = super.getPosition().getY() + super.getDirection().getY();
-        super.setPosition(new Point(newX, newY));
-    }
 
     public Point getSize()
     {

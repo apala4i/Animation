@@ -61,6 +61,8 @@ public abstract class Figure
             pixel.setX(pixel.getX() + direction.getX());
             pixel.setY(pixel.getY() + direction.getY());
         }
+        position.setX(position.getX() + direction.getX());
+        position.setY(position.getY() + direction.getY());
         Collections.sort(figurePixels, new PointComporator());
     }
 

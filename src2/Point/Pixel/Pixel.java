@@ -30,7 +30,7 @@ public class Pixel extends Point
 
     public Pixel clone()
     {
-        return new Pixel(super.getX(), super.getY());
+        return new Pixel(super.getX(), super.getY(), filler);
     }
 
     public char getFiller()

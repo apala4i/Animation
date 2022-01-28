@@ -4,9 +4,11 @@ import java.util.Scanner;
 
 import Frame.*;
 import Figure.*;
-// import Figure.ReadyFigure.ReadyFigure;
-// import Figure.BaseFigure.*;
+import Figure.ReadyFigure.ReadyFigure;
+import Figure.BaseFigure.*;
 import Figure.BaseFigure.Circle.*;
+import Figure.BaseFigure.Square.*;
+import Figure.BaseFigure.Triangle.*;
 import Point.*;
 import Settings.*;
 
@@ -69,7 +71,9 @@ public class MainApp
 
         ArrayList<Figure> figureArray = new ArrayList<Figure>();
 
-        figureArray.add(new Circle(new Point(10, 10), 10, new Point(0, 0), 0.0));
+        // figureArray.add(new Triangle(new Point(10, 10), new Point(10,10), new Point(1, 0), 0.0));
+        // figureArray.add(new Square(new Point(10, 10), 10, new Point(-1, 0), 0.0));
+        figureArray.add(new ReadyFigure("test.txt"));
 
         while (true)
         {
@@ -77,6 +81,7 @@ public class MainApp
             for (var curFigure : figureArray)
             {
                 curFigure.move();
+                // curFigure.rotate();
                 aFrame.addFigure(curFigure);
             }
             aFrame.drawFrame();

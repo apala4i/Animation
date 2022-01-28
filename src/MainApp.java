@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import Frame.*;
@@ -15,7 +16,6 @@ public class MainApp
         System.out.println("Welcome to Dino Game!");
         System.out.println("Made by Selifan, Apala4i, DDBMajor.");
         Settings aSettings;
-
         while (true)
         {
             System.out.println("Do you want to use saved settings?(y, n)");
@@ -64,34 +64,56 @@ public class MainApp
 
         int width = aSettings.getWidth();
         int height = aSettings.getHeight();
-        Figure aCircle = new Figure("Circle", 5, new Point(40, 10), new Point(1, -1));
-        Figure bCircle = new Figure("Circle", 8, new Point(10, 10), new Point(0, 2));
         Frame aFrame = new Frame(width, height);
-        //aFrame.addFigure(aCircle);
-        //aFrame.addFigure(bCircle);
 
-        ReadyFigure cFigure = new ReadyFigure("testFigure.txt", aFrame);
+
+        // ArrayList <ReadyFigure> picuresArray = new ArrayList<ReadyFigure>();
+        // ReadyFigure xuiFigure = new ReadyFigure("xui.txt", aFrame);
+        // ReadyFigure pizdaFigure = new ReadyFigure("pizda.txt", aFrame);
+
+        ReadyFigure Polina = new ReadyFigure("testFigure.txt", aFrame);
+        
+        // picuresArray.add(xuiFigure);
+        // picuresArray.add(pizdaFigure);
+        
+ 
+        ArrayList <Figure> figuresArray = new ArrayList<Figure>();
+
+        Figure aCircle = new Figure("Circle", 5, new Point(10, 10), new Point(1, 0));
+        // Figure bCircle = new Figure("Circle", 8, new Point(10, 10), new Point(0, 2));
+        figuresArray.add(aCircle);
+        // figuresArray.add(bCircle);
+        
 
         while (true)
         {
-            aFrame.drawFrame();
-            // aCircle.setSize((aCircle.getSize() + 1) % 5);
-            //aCircle.move();
-            aCircle.stabPos(width, height);
-            // bCircle.setSize((bCircle.getSize() + 1) % 8);
-            //bCircle.move();
-            bCircle.stabPos(width, height);
+            
             aFrame = new Frame(width, height);
+            aCircle.setSize((aCircle.getSize() + 1) % 10);
+            aCircle.move();
+            aCircle.stabPos(width, height);
 
-            cFigure.move(aFrame);
+            Polina.move(aFrame);
+            aFrame.addFigure(Polina);
+            aFrame.addFigure(aCircle);
+            aFrame.drawFrame();
 
-            aFrame.addFigure(cFigure);
-            //aFrame.addFigure(aCircle);
-            //aFrame.addFigure(bCircle);
+            // for (var i: figuresArray)
+            // {
+            //     i.move();
+            //     i.setSize((i.getSize() + 1) % i.getSize() + 1);
+            //     i.stabPos(width, height);
+            //     aFrame.addFigure(i);
+            // }
+
+            // for (var i: picuresArray)
+            // {
+            //     i.move(aFrame);
+            //     aFrame.addFigure(i);
+            // }
+
             Thread.sleep(100);
         }
-            // System.out.print("\033[H\033[2J");
-            // System.out.flush();
     }
 
     public int readSettingsFromFile()

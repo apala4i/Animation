@@ -6,14 +6,14 @@ import Point.Pixel.*;
 
 final public class Square extends BaseFigure
 {
-    public Square(Point position, Point direction, double rotation, int size)
+    public Square(Point position, int size, Point direction, double rotation)
     {
         super(position, direction, rotation, new Point(size, size));
         this.filler = '□';
         fillFigurePixels();
     }
 
-    public Square(Point position, Point direction, double rotation, int size, char filler)
+    public Square(Point position, int size, Point direction, double rotation, char filler)
     {
         super(position, direction, rotation, new Point(size, size));
         this.filler = filler;
@@ -29,15 +29,12 @@ final public class Square extends BaseFigure
     protected void fillFigurePixels()
     {
         int startX = position.getX() - size.getX() / 2;
-        int startY = position.getY() - size.getY() / 2;
+        int startY = position.getY() + size.getY() / 2;
         for (int y = startY; y < startY + size.getY(); ++y)
         {
             for (int x = startX; x < startX + size.getX(); ++x)
             {
-                if (inFigureCheck(new Point(x, y)))
-                {
-                    figurePixels.add(new Pixel(x, y, filler));
-                }
+                figurePixels.add(new Pixel(x, y, filler));
             }
         }
     }
