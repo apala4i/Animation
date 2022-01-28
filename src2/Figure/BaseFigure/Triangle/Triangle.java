@@ -6,16 +6,16 @@ import Point.Pixel.*;
 
 public class Triangle extends BaseFigure
 {
-    public Triangle(Point position, Point size, Point direction, double rotation)
+    public Triangle(Point position, int size, Point direction, double rotation)
     {
-        super(position, direction, rotation, size);
+        super(position, direction, rotation, new Point(size, size));
         this.filler = '△';
         fillFigurePixels();
     }
 
-    public Triangle(Point position, Point size, Point direction, double rotation, char filler)
+    public Triangle(Point position, int size, Point direction, double rotation, char filler)
     {
-        super(position, direction, rotation, size);
+        super(position, direction, rotation, new Point(size, size));
         this.filler = filler;
         fillFigurePixels();
     }
