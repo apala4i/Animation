@@ -28,7 +28,7 @@ public class Settings
         Scanner savedSettingsScaner;
         try
         {
-            savedSettingsScaner = new Scanner(Path.of("settings.txt"), StandardCharsets.UTF_8);
+            savedSettingsScaner = new Scanner(Path.of("./Settings/settings.txt"), StandardCharsets.UTF_8);
         } catch (IOException e)
         {
             return -1;
@@ -70,7 +70,7 @@ public class Settings
 
     public void writeToFile() throws IOException
     {
-        PrintWriter out = new PrintWriter("settings.txt", StandardCharsets.UTF_8);
+        PrintWriter out = new PrintWriter("./Settings/settings.txt", StandardCharsets.UTF_8);
         out.println(width);
         out.println(height);
         out.println(playerName);
