@@ -81,19 +81,13 @@ public class MainApp
             aFrame = new Frame(width, height);
             for (var curFigure : figureArray)
             {
+                curFigure.rotate(90);
                 aFrame.addFigure(curFigure);
                 //curFigure.move();
-                curFigure.rotate(90);
             }
             aFrame.drawFrame();
 
             Thread.sleep(1000);
         }
-    }
-
-    public int readSettingsFromFile()
-    {
-
-        return 0;
     }
 }
