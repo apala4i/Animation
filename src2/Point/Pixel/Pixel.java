@@ -1,6 +1,8 @@
 package Point.Pixel;
 
 import Point.Point;
+import Point.PointComporator;
+
 import java.util.ArrayList;
 
 public class Pixel extends Point
@@ -24,6 +26,22 @@ public class Pixel extends Point
         for (var curPixel : srcList)
         {
             resList.add(curPixel.clone());
+        }
+        return resList;
+    }
+
+    public static ArrayList<Pixel> makeUnique(ArrayList<Pixel> srcList)
+    {
+        ArrayList<Pixel> resList = new ArrayList<Pixel>();
+        Pixel cmpPixel = srcList.get(0);
+        resList.add(cmpPixel.clone());
+        for (var curPixel : srcList)
+        {
+            if (!curPixel.equals(cmpPixel))
+            {
+                resList.add(curPixel.clone());
+                cmpPixel = curPixel;
+            }
         }
         return resList;
     }

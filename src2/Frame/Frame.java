@@ -78,7 +78,7 @@ public final class Frame
 
         while (curFrameIndex != framePixels.size())
         {
-            resPoints.add(framePixels.get(curFrameIndex++));
+            addPixelToFrame(resPoints, framePixels.get(curFrameIndex++));
         }
 
         while (curFigureIndex != figurePixels.size())
@@ -98,7 +98,7 @@ public final class Frame
 
     private boolean isOnFrame(Pixel aPixel)
     {
-        return (aPixel.getX() <= width) && (aPixel.getY() <= height);
+        return (aPixel.getX() < width) && (aPixel.getY() < height) && (aPixel.getX() >= 0) && (aPixel.getY() >= 0);
     }
 
     public void drawFrame()

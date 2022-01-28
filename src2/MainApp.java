@@ -71,8 +71,8 @@ public class MainApp
 
         ArrayList<Figure> figureArray = new ArrayList<Figure>();
 
-        // figureArray.add(new Triangle(new Point(10, 10), new Point(10,10), new Point(1, 0), 0.0));
-        // figureArray.add(new Square(new Point(10, 10), 10, new Point(-1, 0), 0.0));
+        // figureArray.add(new Triangle(new Point(10, 10), new Point(10,10), new Point(1, 1), 0.0));
+        // figureArray.add(new Square(new Point(10, 10), 11, new Point(10, 10), 0.0));
         figureArray.add(new ReadyFigure("test.txt"));
 
         while (true)

@@ -38,7 +38,7 @@ public final class ReadyFigure extends Figure
             {
                 if (line.charAt(j) != ' ')
                 {
-                    figurePixels.add(new Pixel(j, i, line.charAt(j)));
+                    figurePixels.add(new Pixel(j + position.getX(), i + position.getY(), line.charAt(j)));
                 }
             }
             i++;

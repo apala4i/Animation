@@ -34,6 +34,7 @@ public abstract class Figure
             curPoint.rotate(position, rotation);
         }
         Collections.sort(figurePixels, new PointComporator());
+        figurePixels = Pixel.makeUnique(figurePixels);
     }
 
     public void rotate(double rotation)
@@ -43,6 +44,7 @@ public abstract class Figure
             curPoint.rotate(position, rotation);
         }
         Collections.sort(figurePixels, new PointComporator());
+        figurePixels = Pixel.makeUnique(figurePixels);
     }
 
     public void rotate(Point position, double rotation)
