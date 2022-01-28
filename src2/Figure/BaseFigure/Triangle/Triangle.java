@@ -58,4 +58,9 @@ public class Triangle extends BaseFigure
         }
     }
 
+    public Triangle clone()
+    {
+        return new Triangle(position, size.getX(), direction, rotation, filler);        
+    }
+
 }

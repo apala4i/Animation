@@ -22,7 +22,6 @@ public abstract class BaseFigure extends Figure
         this.size = size.clone();
     }
 
-
     public Point getSize()
     {
         return size.clone();
@@ -32,4 +31,6 @@ public abstract class BaseFigure extends Figure
     {
         this.size = size.clone();
     }
+
+
 }

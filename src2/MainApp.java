@@ -1,13 +1,11 @@
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import Frame.*;
-import Figure.*;
 import Figure.ReadyFigure.*;
 import Figure.BaseFigure.Square.*;
 import Figure.BaseFigure.Circle.*;
 import Figure.BaseFigure.Triangle.*;
+import Screen.*;
 import Point.*;
 import Settings.*;
 
@@ -66,27 +64,15 @@ public class MainApp
         int width = aSettings.getWidth();
         int height = aSettings.getHeight();
 
-        Frame aFrame = new Frame(width, height);
+        Screen screen = new Screen(width, height, true, 80);
 
-        ArrayList<Figure> figureArray = new ArrayList<Figure>();
 
-        figureArray.add(new Triangle(new Point(30, 10), 5, new Point(-1, 1), 90.0));
-        figureArray.add(new Square(new Point(15, 12), 7, new Point(1, 0), 90.0));
-        figureArray.add(new Circle(new Point(10, 10), 4, new Point(0, 1), 0.0));
-        figureArray.add(new ReadyFigure("test.txt"));
+        screen.addFigure(new Triangle(new Point(30, 10), 5, new Point(-1, 1), 0.0));
+        screen.addFigure(new Square(new Point(30, 5), 10, new Point(1, 0), 0.0));
+        screen.addFigure(new Circle(new Point(10, 10), 4, new Point(0, 1), 0.0));
+        screen.addFigure(new ReadyFigure("test.txt"));
+        screen.addFigure(new ReadyFigure("test2.txt"));
 
-        while (true)
-        {
-            aFrame = new Frame(width, height);
-            for (var curFigure : figureArray)
-            {
-                curFigure.move();
-                curFigure.rotate();
-                aFrame.addFigure(curFigure);
-            }
-            aFrame.drawFrame();
-
-            Thread.sleep(1000);
-        }
+        screen.play();
     }
 }

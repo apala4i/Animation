@@ -13,6 +13,9 @@ public abstract class Figure
     protected double rotation = 0.0;
     protected ArrayList<Pixel> figurePixels = new ArrayList<Pixel>();
 
+    public abstract Figure clone();
+
+
     public Figure(Point position, Point direction, double rotation)
     {
         this.position = position.clone();
@@ -25,6 +28,36 @@ public abstract class Figure
         position = new Point(0, 0);
         direction = new Point(0, 0);
         rotation = 0.0;
+    }
+
+    public void stabPos(int width, int height)
+    {
+        for (var curPoint : figurePixels)
+        {
+            if (curPoint.getX() < 0)
+            {
+                curPoint.setX(curPoint.getX() + width);
+            }
+            if (curPoint.getY() < 0)
+            {
+                curPoint.setY(curPoint.getY() + height);
+            }
+            curPoint.setX(curPoint.getX() % (width));
+            curPoint.setY(curPoint.getY() % (height));
+        }
+        Collections.sort(figurePixels, new PointComporator());
+        figurePixels = Pixel.makeUnique(figurePixels);
+
+    }
+
+    public static ArrayList <Figure> copyArrayList(ArrayList <Figure> aFigures)
+    {
+        ArrayList <Figure> newFigures = new ArrayList <Figure>();
+        for (var aFigure : aFigures)
+        {
+            newFigures.add(aFigure.clone());
+        }
+        return newFigures;
     }
 
     public void rotate()

@@ -12,6 +12,13 @@ import java.util.*;
 public final class ReadyFigure extends Figure
 {
 
+    public ReadyFigure(){}
+
+    private ReadyFigure(Point position, Point direction, double rotation)
+    {
+        super(position, direction, rotation);
+    }
+
     public ReadyFigure(String filename) throws IOException
     {
         try
@@ -47,4 +54,12 @@ public final class ReadyFigure extends Figure
         }
     }
 
+
+    @Override
+    public Figure clone()
+    {
+        ReadyFigure newReadyFigure = new ReadyFigure(position, direction, rotation);
+        newReadyFigure.figurePixels = Pixel.copyArrayList(figurePixels);
+        return newReadyFigure;
+    }
 }

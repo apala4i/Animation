@@ -45,4 +45,10 @@ public final class Circle extends BaseFigure
             }
         }
     }
+
+    @Override
+    public Circle clone()
+    {
+        return new Circle(position, size.getX(), direction, rotation, filler);        
+    }
 }

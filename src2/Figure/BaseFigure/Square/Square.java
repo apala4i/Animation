@@ -38,4 +38,10 @@ final public class Square extends BaseFigure
             }
         }
     }
+
+    @Override
+    public Square clone()
+    {
+        return new Square(position, size.getX(), direction, rotation, filler);
+    }
 }

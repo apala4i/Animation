@@ -1,6 +1,7 @@
-package Frame;
+package Screen;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import Figure.*;
 import Point.*;
@@ -8,7 +9,7 @@ import Point.Pixel.*;
 // import Figure.ReadyFigure.*;
 import Figure.BaseFigure.*;
 
-public final class Frame
+class Frame
 {
     private ArrayList<Pixel> framePixels = new ArrayList<Pixel>();
 
@@ -16,11 +17,18 @@ public final class Frame
     private int height = 0;
     private int squeezeX = 2;
     private int squeezeY = 1;
+    private boolean isSphere = false;
 
-    public Frame(int width, int height)
+    public Frame(int width, int height, boolean isSphere)
     {
         this.width = width;
         this.height = height;
+        this.isSphere = isSphere;
+    }
+
+    public void clear()
+    {
+        framePixels = new ArrayList<Pixel>();
     }
 
     public boolean addFigure(Figure aFigure)
@@ -31,9 +39,7 @@ public final class Frame
             squeezeAllPixels(figurePixels);
         }
 
-        int framePixelsLen = framePixels.size();
-        addFigureToFramePixels(figurePixels);
-        return framePixelsLen != framePixels.size();
+        return addFigureToFramePixels(figurePixels);
     }
 
     private void squeezeAllPixels(ArrayList<Pixel> pixels)
@@ -52,8 +58,9 @@ public final class Frame
         pixel.setY(pixel.getY() * squeezeY);
     }
 
-    private void addFigureToFramePixels(ArrayList<Pixel> figurePixels)
+    private boolean addFigureToFramePixels(ArrayList<Pixel> figurePixels)
     {
+        boolean fullOnFrame = true;
         int curFrameIndex = 0;
         int curFigureIndex = 0;
 
@@ -65,35 +72,61 @@ public final class Frame
                     figurePixels.get(curFigureIndex));
             if (cmpRes > 0)
             {
-                addPixelToFrame(resPoints, figurePixels.get(curFigureIndex++));
+                fullOnFrame &= addPixelToFrame(resPoints, figurePixels.get(curFigureIndex++));
             } else if (cmpRes < 0)
             {
-                resPoints.add(framePixels.get(curFrameIndex++));
+                fullOnFrame &= addPixelToFrame(resPoints, framePixels.get(curFrameIndex++));
             } else
             {
-                resPoints.add(framePixels.get(curFrameIndex++));
+                fullOnFrame &= addPixelToFrame(resPoints, framePixels.get(curFrameIndex++));
                 curFigureIndex++;
             }
         }
 
         while (curFrameIndex != framePixels.size())
         {
-            addPixelToFrame(resPoints, framePixels.get(curFrameIndex++));
+            fullOnFrame &= addPixelToFrame(resPoints, framePixels.get(curFrameIndex++));
         }
 
         while (curFigureIndex != figurePixels.size())
         {
-            addPixelToFrame(resPoints, figurePixels.get(curFigureIndex++));
+            fullOnFrame &= addPixelToFrame(resPoints, figurePixels.get(curFigureIndex++));
         }
         framePixels = resPoints;
+        Collections.sort(framePixels, new PointComporator());
+        framePixels = Pixel.makeUnique(framePixels);
+        return fullOnFrame;
     }
 
-    private void addPixelToFrame(ArrayList<Pixel> resPoints, Pixel aPixel)
+    private boolean addPixelToFrame(ArrayList<Pixel> resPoints, Pixel aPixel)
     {
         if (isOnFrame(aPixel))
         {
             resPoints.add(aPixel);
+            return true;
         }
+        else if (isSphere)
+        {
+            if (aPixel.getX() < 0)
+            {
+                aPixel.setX(aPixel.getX() + width);
+            }
+            else
+            {
+                aPixel.setX(aPixel.getX() % width);
+            }
+            if (aPixel.getY() < 0)
+            {
+                aPixel.setY(aPixel.getY() + height);
+            }   
+            else
+            {
+                aPixel.setY(aPixel.getY() % height);
+            }
+            resPoints.add(aPixel);
+            return false;
+        }
+        return false;
     }
 
     private boolean isOnFrame(Pixel aPixel)
