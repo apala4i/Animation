@@ -13,6 +13,7 @@ public class MainApp
 {
     public static void main(String[] argc) throws IOException, InterruptedException
     {
+        // terminalWidth = jline.TerminalFactory.get().getWidth();
         var in = new Scanner(System.in);
         System.out.println("Welcome to Dino Game!");
         System.out.println("Made by Selifan, Apala4i, DDBMajor.");
@@ -44,7 +45,11 @@ public class MainApp
             {
                 int rc = aSettings.readFromUser();
                 if (rc == 0)
+                {
+                    System.out.println("Saving your settings.");
+                    aSettings.writeToFile();
                     break;
+                }
             } else
             {
                 System.out.println("Wrong choice!");
@@ -67,7 +72,7 @@ public class MainApp
         Screen screen = new Screen(width, height, true, 80);
 
 
-        screen.addFigure(new Triangle(new Point(30, 10), 5, new Point(-1, 1), 0.0));
+        screen.addFigure(new Triangle(new Point(30, 10), 5, new Point(-1, 1), 90.0));
         screen.addFigure(new Square(new Point(30, 5), 10, new Point(1, 0), 0.0));
         screen.addFigure(new Circle(new Point(10, 10), 4, new Point(0, 1), 0.0));
         screen.addFigure(new ReadyFigure("test.txt"));
