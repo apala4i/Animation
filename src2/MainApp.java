@@ -13,7 +13,6 @@ public class MainApp
 {
     public static void main(String[] argc) throws IOException, InterruptedException
     {
-        // terminalWidth = jline.TerminalFactory.get().getWidth();
         var in = new Scanner(System.in);
         System.out.println("Welcome to Dino Game!");
         System.out.println("Made by Selifan, Apala4i, DDBMajor.");

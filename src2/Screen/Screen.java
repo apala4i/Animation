@@ -4,6 +4,8 @@ import Figure.*;
 
 import java.util.ArrayList;
 
+// import jline2.src.main.java.jline.*;
+
 
 public class Screen
 {
@@ -63,6 +65,8 @@ public class Screen
     {
         while(true)
         {
+            // curFrame.setWidth(TerminalFactory.get().getWidth());
+            // curFrame.setHeight(TerminalFactory.get().getHeight());
             curFrame.drawFrame();
             makeNextFrame();
             Thread.sleep(delay);
