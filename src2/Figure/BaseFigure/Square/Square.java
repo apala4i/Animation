@@ -29,7 +29,7 @@ final public class Square extends BaseFigure
     protected void fillFigurePixels()
     {
         int startX = position.getX() - size.getX() / 2;
-        int startY = position.getY() + size.getY() / 2;
+        int startY = position.getY() - size.getY() / 2;
         for (int y = startY; y < startY + size.getY(); ++y)
         {
             for (int x = startX; x < startX + size.getX(); ++x)

@@ -6,9 +6,9 @@ import Frame.*;
 import Figure.*;
 import Figure.ReadyFigure.ReadyFigure;
 import Figure.BaseFigure.Square.Square;
-// import Figure.BaseFigure.*;
-// import Figure.BaseFigure.Circle.*;
-// import Figure.BaseFigure.Square.*;
+import Figure.BaseFigure.*;
+import Figure.BaseFigure.Circle.*;
+import Figure.BaseFigure.Square.*;
 import Figure.BaseFigure.Triangle.*;
 import Point.*;
 import Settings.*;
@@ -72,16 +72,16 @@ public class MainApp
 
         ArrayList<Figure> figureArray = new ArrayList<Figure>();
 
-        //figureArray.add(new Triangle(new Point(10, 10), new Point(10,10), new Point(1, 1), 180.0));
-        //figureArray.add(new Square(new Point(5, 5), 7, new Point(10, 10), 90.0));
-        figureArray.add(new ReadyFigure("test.txt"));
+        // figureArray.add(new Triangle(new Point(10, 10), new Point(10,10), new Point(1, 1), 80.0));
+        figureArray.add(new Square(new Point(10, 10), 7, new Point(10, 10), 45.0));
+        // figureArray.add(new ReadyFigure("test.txt"));
 
         while (true)
         {
             aFrame = new Frame(width, height);
             for (var curFigure : figureArray)
             {
-                curFigure.rotate(90);
+                curFigure.rotate();
                 aFrame.addFigure(curFigure);
                 //curFigure.move();
             }

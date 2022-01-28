@@ -1,7 +1,6 @@
 package Point.Pixel;
 
 import Point.Point;
-import Point.PointComporator;
 
 import java.util.ArrayList;
 
