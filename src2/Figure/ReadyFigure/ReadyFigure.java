@@ -19,7 +19,9 @@ public final class ReadyFigure extends Figure
             Scanner figureScanner = new Scanner(Path.of(filename), StandardCharsets.UTF_8);
             setPosition(new Point(figureScanner.nextInt(), figureScanner.nextInt()));
             setDirection(new Point(figureScanner.nextInt(), figureScanner.nextInt()));
+            figureScanner.nextLine();
             fillFigurePixels(figureScanner);
+            figureScanner.close();
 
         }
         catch (IOException e)

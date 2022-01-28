@@ -54,6 +54,7 @@ public abstract class Figure
             curPoint.rotate(position, rotation);
         }
         Collections.sort(figurePixels, new PointComporator());
+        figurePixels = Pixel.makeUnique(figurePixels);
     }
 
     public void move()

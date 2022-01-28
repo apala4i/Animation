@@ -68,7 +68,7 @@ public class Point
         Point diff = this.clone();
         diff.sub(center);
         this.x = (int) (diff.x * Math.cos(rotation) - diff.y * Math.sin(rotation) + this.x);
-        this.y = (int) (diff.y * Math.cos(rotation) + diff.y * Math.sin(rotation) + this.y);
+        this.y = (int) (diff.x * Math.cos(rotation) + diff.y * Math.sin(rotation) + this.y);
     }
 
 }
