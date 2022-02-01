@@ -136,7 +136,7 @@ class Frame
 
     public void drawFrame()
     {
-        // System.out.print("\033[H\033[2J");
+        StringBuilder output = new StringBuilder("");
         if (framePixels.size() != 0)
         {
             int nextIndex = 0;
@@ -147,17 +147,17 @@ class Frame
                 {
                     if (new Point(j, i).equals(nextPixel))
                     {
-                        System.out.printf("%c", nextPixel.getFiller());
+                        output.append(nextPixel.getFiller());
                         if (framePixels.size() - 1 != nextIndex)
                         {
                             nextPixel = framePixels.get(++nextIndex);
                         }
                     } else
                     {
-                        System.out.print(" ");
+                        output.append(' ');
                     }
                 }
-                System.out.println();
+                output.append('\n');
             }
         }
         else
@@ -166,11 +166,12 @@ class Frame
             {
                 for (int j = 0; j < width; ++j)
                 {
-                    System.out.print(" ");
+                    output.append(' ');
                 }
-                System.out.println();
+                output.append('\n');
             }
         }
+        System.out.print(output);
     }
 
     public int getWidth()
