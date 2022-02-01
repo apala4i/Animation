@@ -1,10 +1,15 @@
 package Screen;
 
 import Figure.*;
+// import jline3.terminal.src.main.java.org.jline.terminal.Terminal;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
-// import jline2.src.main.java.jline.*;
+// import org.jline.reader.impl.TerminalReaderTest;
+
+// import jline3.terminal.src.main.java.*;
+
 
 
 public class Screen
@@ -61,15 +66,15 @@ public class Screen
         addFiguresToFrame();
     }
 
-    public void play() throws InterruptedException
+    public void play() throws InterruptedException, IOException
     {
+
         while(true)
         {
-            // curFrame.setWidth(TerminalFactory.get().getWidth());
-            // curFrame.setHeight(TerminalFactory.get().getHeight());
             curFrame.drawFrame();
             makeNextFrame();
             Thread.sleep(delay);
+            System.out.println("[H[2J[3J");
         }
     }
 
