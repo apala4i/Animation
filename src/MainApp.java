@@ -1,10 +1,11 @@
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import Frame.*;
-import Figure.*;
-import Figure.ReadyFigure.ReadyFigure;
+import Figure.ReadyFigure.*;
+import Figure.BaseFigure.Square.*;
+import Figure.BaseFigure.Circle.*;
+import Figure.BaseFigure.Triangle.*;
+import Screen.*;
 import Point.*;
 import Settings.*;
 
@@ -16,6 +17,7 @@ public class MainApp
         System.out.println("Welcome to Dino Game!");
         System.out.println("Made by Selifan, Apala4i, DDBMajor.");
         Settings aSettings;
+
         while (true)
         {
             System.out.println("Do you want to use saved settings?(y, n)");
@@ -38,20 +40,21 @@ public class MainApp
                     }
                 }
                 break;
-            }
-            else if (answer.equals("n"))
+            } else if (answer.equals("n"))
             {
                 int rc = aSettings.readFromUser();
                 if (rc == 0)
+                {
+                    System.out.println("Saving your settings.");
+                    aSettings.writeToFile();
                     break;
-            }
-            else
+                }
+            } else
             {
                 System.out.println("Wrong choice!");
             }
         }
         in.close();
-
 
         System.out.println("Game starts in...");
         Thread.sleep(100);
@@ -64,61 +67,16 @@ public class MainApp
 
         int width = aSettings.getWidth();
         int height = aSettings.getHeight();
-        Frame aFrame = new Frame(width, height);
+
+        Screen screen = new Screen(width, height, true, 80);
 
 
-        // ArrayList <ReadyFigure> picuresArray = new ArrayList<ReadyFigure>();
-        // ReadyFigure xuiFigure = new ReadyFigure("xui.txt", aFrame);
-        // ReadyFigure pizdaFigure = new ReadyFigure("pizda.txt", aFrame);
+        screen.addFigure(new Triangle(new Point(30, 10), 5, new Point(-1, 1), 90.0));
+        screen.addFigure(new Square(new Point(30, 5), 10, new Point(1, 0), 0.0));
+        screen.addFigure(new Circle(new Point(10, 10), 4, new Point(0, 1), 0.0));
+        screen.addFigure(new ReadyFigure("test.txt"));
+        screen.addFigure(new ReadyFigure("test2.txt"));
 
-        ReadyFigure Polina = new ReadyFigure("testFigure.txt", aFrame);
-        
-        // picuresArray.add(xuiFigure);
-        // picuresArray.add(pizdaFigure);
-        
- 
-        ArrayList <Figure> figuresArray = new ArrayList<Figure>();
-
-        Figure aCircle = new Figure("Circle", 5, new Point(10, 10), new Point(1, 0));
-        // Figure bCircle = new Figure("Circle", 8, new Point(10, 10), new Point(0, 2));
-        figuresArray.add(aCircle);
-        // figuresArray.add(bCircle);
-        
-
-        while (true)
-        {
-            
-            aFrame = new Frame(width, height);
-            aCircle.setSize((aCircle.getSize() + 1) % 10);
-            aCircle.move();
-            aCircle.stabPos(width, height);
-
-            Polina.move(aFrame);
-            aFrame.addFigure(Polina);
-            aFrame.addFigure(aCircle);
-            aFrame.drawFrame();
-
-            // for (var i: figuresArray)
-            // {
-            //     i.move();
-            //     i.setSize((i.getSize() + 1) % i.getSize() + 1);
-            //     i.stabPos(width, height);
-            //     aFrame.addFigure(i);
-            // }
-
-            // for (var i: picuresArray)
-            // {
-            //     i.move(aFrame);
-            //     aFrame.addFigure(i);
-            // }
-
-            Thread.sleep(100);
-        }
-    }
-
-    public int readSettingsFromFile()
-    {
-
-        return 0;
+        screen.play();
     }
 }

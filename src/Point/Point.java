@@ -37,6 +37,12 @@ public class Point
         y += point.y;
     }
 
+    public void sub(Point point)
+    {
+        x -= point.x;
+        y -= point.y;
+    }
+
     public boolean equals(Point aPoint)
     {
         return ((this.x == aPoint.x) && (this.y == aPoint.y));
@@ -50,6 +56,19 @@ public class Point
     public int compareY(Point aPoint)
     {
         return this.y - aPoint.y;
+    }
+
+    public Point clone()
+    {
+        return new Point(x, y);
+    }
+
+    public void rotate(Point center, double rotation)
+    {
+        Point diff = this.clone();
+        diff.sub(center);
+        this.x = (int) (diff.x * Math.cos(Math.toRadians(rotation)) - diff.y * Math.sin(Math.toRadians(rotation)) + center.x);
+        this.y = (int) (diff.x * Math.sin(Math.toRadians(rotation)) + diff.y * Math.cos(Math.toRadians(rotation)) + center.y);
     }
 
 }

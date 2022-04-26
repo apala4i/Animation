@@ -8,13 +8,13 @@ import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-
-public class Settings {
+public class Settings
+{
     private int width;
     private int height;
     private String playerName;
     private int record;
-    
+
     public Settings()
     {
         width = 0;
@@ -28,9 +28,8 @@ public class Settings {
         Scanner savedSettingsScaner;
         try
         {
-            savedSettingsScaner = new Scanner(Path.of("settings.txt"), StandardCharsets.UTF_8);
-        }
-        catch (IOException e)
+            savedSettingsScaner = new Scanner(Path.of("./Settings/settings.txt"), StandardCharsets.UTF_8);
+        } catch (IOException e)
         {
             return -1;
         }
@@ -40,8 +39,7 @@ public class Settings {
             height = savedSettingsScaner.nextInt();
             playerName = savedSettingsScaner.next();
             record = savedSettingsScaner.nextInt();
-        }
-        catch (NoSuchElementException e)
+        } catch (NoSuchElementException e)
         {
             savedSettingsScaner.close();
             return -2;
@@ -60,9 +58,9 @@ public class Settings {
             System.out.println("Please, set your current terminal sizes(width, height).");
             width = in.nextInt();
             height = in.nextInt();
-        }
-        catch (InputMismatchException e)
+        } catch (InputMismatchException e)
         {
+            in.close();
             return -1;
         }
         record = 0;
@@ -72,7 +70,7 @@ public class Settings {
 
     public void writeToFile() throws IOException
     {
-        PrintWriter out = new PrintWriter("settings.txt", StandardCharsets.UTF_8);
+        PrintWriter out = new PrintWriter("./Settings/settings.txt", StandardCharsets.UTF_8);
         out.println(width);
         out.println(height);
         out.println(playerName);

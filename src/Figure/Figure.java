@@ -1,81 +1,149 @@
 package Figure;
 
 import Point.*;
+import Point.Pixel.*;
 
-public class Figure
+import java.util.ArrayList;
+import java.util.Collections;
+
+public abstract class Figure
 {
-    private String type = "none";
-    private int size = 0;
-    private Point pos = null;
-    private Point direction = null;
+    protected Point position;
+    protected Point direction;
+    protected double rotation = 0.0;
+    protected ArrayList<Pixel> figurePixels = new ArrayList<Pixel>();
 
-    public Figure(String type, int size, Point pos, Point direction)
+    public abstract Figure clone();
+
+
+    public Figure(Point position, Point direction, double rotation)
     {
-        this.direction = direction;
-        this.type = type;
-        this.size = size;
-        this.pos = pos;
+        this.position = position.clone();
+        this.direction = direction.clone();
+        this.rotation = rotation;
     }
 
-    public Figure(){}
-
-    public String getType()
+    public Figure()
     {
-        return type;
-    }
-
-    public int getSize()
-    {
-        return size;
-    }
-
-    public Point getPos()
-    {
-        return pos;
-    }
-
-    public Point getDirection()
-    {
-        return direction; 
-    }
-
-    public void setSize(int size)
-    {
-        this.size = size;
-    }
-
-    public void setPos(Point pos)
-    {
-        this.pos = pos;
-    }
-
-    public void setType(String type)
-    {
-        this.type = type;
-    }
-
-    public void setDirection(Point direction)
-    {
-        this.direction = direction;
+        position = new Point(0, 0);
+        direction = new Point(0, 0);
+        rotation = 0.0;
     }
 
     public void stabPos(int width, int height)
     {
-        if (pos.getX() < 0)
+        for (var curPoint : figurePixels)
         {
-            pos.setX(width - 1);
+            if (curPoint.getX() < 0)
+            {
+                curPoint.setX(curPoint.getX() + width);
+            }
+            if (curPoint.getY() < 0)
+            {
+                curPoint.setY(curPoint.getY() + height);
+            }
+            curPoint.setX(curPoint.getX() % (width));
+            curPoint.setY(curPoint.getY() % (height));
         }
-        if (pos.getY() < 0)
+        Collections.sort(figurePixels, new PointComporator());
+        figurePixels = Pixel.makeUnique(figurePixels);
+
+    }
+
+    public static ArrayList <Figure> copyArrayList(ArrayList <Figure> aFigures)
+    {
+        ArrayList <Figure> newFigures = new ArrayList <Figure>();
+        for (var aFigure : aFigures)
         {
-            pos.setY(height - 1);
+            newFigures.add(aFigure.clone());
         }
-        pos.setX(pos.getX() % (width + size));
-        pos.setY(pos.getY() % (height + size));
+        return newFigures;
+    }
+
+    public void rotate()
+    {
+        for (var curPoint : figurePixels)
+        {
+            curPoint.rotate(position, rotation);
+        }
+        Collections.sort(figurePixels, new PointComporator());
+        figurePixels = Pixel.makeUnique(figurePixels);
+    }
+
+    public void rotate(double rotation)
+    {
+        for (var curPoint : figurePixels)
+        {
+            curPoint.rotate(position, rotation);
+        }
+        Collections.sort(figurePixels, new PointComporator());
+        figurePixels = Pixel.makeUnique(figurePixels);
+    }
+
+    public void rotate(Point position, double rotation)
+    {
+        for (var curPoint : figurePixels)
+        {
+            curPoint.rotate(position, rotation);
+        }
+        Collections.sort(figurePixels, new PointComporator());
+        figurePixels = Pixel.makeUnique(figurePixels);
     }
 
     public void move()
     {
-        pos.add(direction);
+        for (var pixel : figurePixels)
+        {
+            pixel.setX(pixel.getX() + direction.getX());
+            pixel.setY(pixel.getY() + direction.getY());
+        }
+        position.setX(position.getX() + direction.getX());
+        position.setY(position.getY() + direction.getY());
+        Collections.sort(figurePixels, new PointComporator());
     }
-    
+
+    public void move(Point direction)
+    {
+        for (var pixel : figurePixels)
+        {
+            pixel.setX(pixel.getX() + direction.getX());
+            pixel.setY(pixel.getY() + direction.getY());
+        }
+        Collections.sort(figurePixels, new PointComporator());
+    }
+
+    public Point getPosition()
+    {
+        return position.clone();
+    }
+
+    public Point getDirection()
+    {
+        return direction.clone();
+    }
+
+    public double getRotationtion()
+    {
+        return rotation;
+    }
+
+    public ArrayList<Pixel> getPixels()
+    {
+        return figurePixels;
+    }
+
+    public void setPosition(Point position)
+    {
+        this.position = position.clone();
+    }
+
+    public void setDirection(Point direction)
+    {
+        this.direction = direction.clone();
+    }
+
+    public void setRotation(double rotation)
+    {
+        this.rotation = rotation;
+    }
 }
